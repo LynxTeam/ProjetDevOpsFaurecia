@@ -1,0 +1,4 @@
+# roles/wordpress/tasks/config.yml
+# Configures Wordpress
+---
+

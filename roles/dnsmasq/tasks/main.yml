@@ -1,0 +1,9 @@
+---
+- name: Installation de DNSMasq
+  become: yes
+  apt:
+    name: dnsmasq
+    state: present
+  become: true
+  register: result
+  until: result is successful

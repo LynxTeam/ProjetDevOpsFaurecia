@@ -1,0 +1,10 @@
+---
+- name: install mariadb server
+  become: yes
+  apt:
+    name: mariadb-server
+    state: latest
+  tags:
+    - mariadb
+  register: result
+  until: result is successful

@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  roles:
+     - wordpress
+     - haproxy
+     - mariadb
+     - dnsmasq  
+
+  # cette variable sera utilisé dans la demande certificat ssl
+  vars:
+    email: zouhair.aabadli@gmail.com
+
+  # à l'exécution il faudra renseigner cette variable
+  vars_prompt:
+    - name: "mysqlRootPass"
+      prompt: "password for MySQL root"

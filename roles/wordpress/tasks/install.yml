@@ -13,7 +13,6 @@
     - mariadb-client
     - nfs-common
     - cifs-utils
-    - libapache2-mod-php
 
 - name: Download WordPress
   get_url: 

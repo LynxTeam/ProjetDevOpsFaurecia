@@ -13,6 +13,18 @@
     - devsec
     - devsecops
 
+- name: Add mappings to /etc/hosts
+  become: yes
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {{ item.ip }} {{ item.name }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+  loop:
+    - { name: devops.com, ip: 127.0.0.1 }
+    - { name: devsec.com, ip: 127.0.0.1 }
+    - { name: devsecops.com, ip: 127.0.0.1 }      
+
 - name: Enable site
   become: yes
   command: "a2ensite {{ item }}.com" 
@@ -26,4 +38,5 @@
   service:
    name: apache2
    state: restarted
+
 

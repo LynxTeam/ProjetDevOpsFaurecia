@@ -1,11 +1,10 @@
 # roles/wordpress/tasks/install.yml
 ---
-
 - name: Ensure repository is installed
   become: yes
   apt:
     name: "{{ item }}"
-    state: installed
+    state: present
   with_items: 
     - apache2
     - php7.3
@@ -14,6 +13,7 @@
     - mariadb-client
     - nfs-common
     - cifs-utils
+    - libapache2-mod-php
 
 - name: Download WordPress
   get_url: 
@@ -54,4 +54,11 @@
   unarchive: src=/tmp/wordpress.tar.gz dest=/var/www/devsecops copy=no
   become: yes  
 
-
+- name: Ensure correct permissions
+  become: yes
+  file:
+    path: "/var/www"
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: www-data

@@ -1,4 +1,29 @@
 # roles/wordpress/tasks/config.yml
 # Configures Wordpress
 ---
+- name: Create Virtualhost configuration
+  become: yes
+  template:
+    src: "{{ item }}.com.j2"
+    dest: "/etc/apache2/sites-available/{{ item }}.com.conf"
+    owner: www-data
+    group: www-data
+  with_items: 
+    - devops
+    - devsec
+    - devsecops
+
+- name: Enable site
+  become: yes
+  command: "a2ensite {{ item }}.com" 
+  with_items: 
+    - devops
+    - devsec
+    - devsecops
+
+- name: Restart apache
+  become: yes
+  service:
+   name: apache2
+   state: restarted
 

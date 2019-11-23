@@ -1,6 +1,17 @@
 # roles/wordpress/tasks/config.yml
 # Configures Wordpress
 ---
+- name: Enable required apache modules
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - expires
+    - headers
+    - http2
+    - rewrite
+    - ssl
+
 - name: Create Virtualhost configuration
   become: yes
   template:
